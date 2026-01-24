@@ -3,6 +3,7 @@ import { createAnthropic } from '@ai-sdk/anthropic';
 import { streamText, convertToModelMessages } from 'ai';
 import cors from 'cors';
 import express from 'express';
+import { isMock, sendMockResponse } from './mock-response';
 // import { openai } from '@ai-sdk/openai';
 
 function startServer() {
@@ -28,8 +29,12 @@ function startServer() {
       });
 
       // Set headers for streaming
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-      res.setHeader('Transfer-Encoding', 'chunked');
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      // res.setHeader('Transfer-Encoding', 'chunked');
+
+      if (isMock) return void (await sendMockResponse(res));
 
       result.pipeUIMessageStreamToResponse(res);
 
