@@ -42,7 +42,41 @@ importers:
         specifier: ^18.0.0
         version: 18.0.0
 
-  apps/ai-assistant-frontend:
+  apps/backend:
+    dependencies:
+      '@ai-sdk/anthropic':
+        specifier: ^3.0.23
+        version: 3.0.23(zod@4.3.6)
+      '@ai-sdk/openai':
+        specifier: ^3.0.18
+        version: 3.0.18(zod@4.3.6)
+      ai:
+        specifier: ^6.0.49
+        version: 6.0.49(zod@4.3.6)
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.6
+      express:
+        specifier: ^4.18.2
+        version: 4.22.1
+    devDependencies:
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.19
+      '@types/express':
+        specifier: ^4.17.21
+        version: 4.17.25
+      '@types/node':
+        specifier: ^24.6.2
+        version: 24.10.9
+      tsx:
+        specifier: ^4.20.6
+        version: 4.21.0
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+
+  apps/frontend:
     dependencies:
       '@ai-sdk/openai':
         specifier: ^3.0.18
@@ -153,40 +187,6 @@ importers:
       vite:
         specifier: ^7.2.4
         version: 7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)
-
-  apps/backend:
-    dependencies:
-      '@ai-sdk/anthropic':
-        specifier: ^3.0.23
-        version: 3.0.23(zod@4.3.6)
-      '@ai-sdk/openai':
-        specifier: ^3.0.18
-        version: 3.0.18(zod@4.3.6)
-      ai:
-        specifier: ^6.0.49
-        version: 6.0.49(zod@4.3.6)
-      cors:
-        specifier: ^2.8.5
-        version: 2.8.6
-      express:
-        specifier: ^4.18.2
-        version: 4.22.1
-    devDependencies:
-      '@types/cors':
-        specifier: ^2.8.17
-        version: 2.8.19
-      '@types/express':
-        specifier: ^4.17.21
-        version: 4.17.25
-      '@types/node':
-        specifier: ^24.6.2
-        version: 24.10.9
-      tsx:
-        specifier: ^4.20.6
-        version: 4.21.0
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
 
 packages:
 

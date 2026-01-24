@@ -2,7 +2,7 @@ import { AssistantRuntimeProvider } from '@assistant-ui/react';
 import { useChatRuntime, AssistantChatTransport } from '@assistant-ui/react-ai-sdk';
 import Thread from '@src/components/assistant-ui/Thread/Thread';
 
-export function App() {
+export default function App() {
   const runtime = useChatRuntime({
     transport: new AssistantChatTransport({
       api: 'http://localhost:8000/api/chat',
@@ -17,5 +17,3 @@ export function App() {
     </AssistantRuntimeProvider>
   );
 }
-
-export default App;
