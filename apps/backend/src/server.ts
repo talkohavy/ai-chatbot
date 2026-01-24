@@ -22,7 +22,7 @@ function startServer() {
       const { messages } = req.body;
 
       const result = streamText({
-        model: anthropic('deployment-name'), // Or: openai('gpt-4o-mini')
+        model: anthropic(process.env.ANTHROPIC_DEPLOYMENT_NAME || 'deployment-name'), // Or: openai('gpt-4o-mini')
         messages: await convertToModelMessages(messages),
         temperature: 0,
       });
