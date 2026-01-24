@@ -11,7 +11,7 @@ export default function App() {
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
-      <div className='flex items-center justify-center w-full min-h-screen'>
+      <div className='flex items-center justify-center size-full'>
         <Thread />
       </div>
     </AssistantRuntimeProvider>
