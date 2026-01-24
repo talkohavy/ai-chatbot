@@ -118,7 +118,7 @@ export async function sendMockResponse(res: Response) {
   for (let i = 0; i < hardcodedResponse.length; i += chunkSize) {
     const chunk = hardcodedResponse.slice(i, i + chunkSize);
     res.write(`data: ${JSON.stringify({ type: 'text-delta', id: '0', delta: chunk })}\n\n`);
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 200));
   }
 
   // Send end events
