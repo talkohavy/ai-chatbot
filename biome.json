@@ -52,7 +52,8 @@
         "noSvgWithoutTitle": "off",
         "useSemanticElements": "off",
         "noStaticElementInteractions": "off",
-        "noAriaHiddenOnFocusable": "off"
+        "noAriaHiddenOnFocusable": "off",
+        "useFocusableInteractive": "off"
       },
       "style": {
         "useSingleVarDeclarator": "off",

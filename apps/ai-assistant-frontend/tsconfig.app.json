@@ -23,10 +23,9 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["apps/ai-assistant-frontend/src/*"]
+      "@src/*": ["./src/*"]
     }
   },
-  "include": ["apps/ai-assistant-frontend/src"]
+  "include": ["src"]
 }
