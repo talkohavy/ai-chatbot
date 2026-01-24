@@ -117,12 +117,12 @@ export async function sendMockResponse(res: Response) {
   const chunkSize = 50;
   for (let i = 0; i < hardcodedResponse.length; i += chunkSize) {
     const chunk = hardcodedResponse.slice(i, i + chunkSize);
-    res.write(`data: ${JSON.stringify({ type: 'text-delta', id: i.toString(), delta: chunk })}\n\n`);
+    res.write(`data: ${JSON.stringify({ type: 'text-delta', id: '0', delta: chunk })}\n\n`);
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
 
   // Send end events
-  res.write(`data: ${JSON.stringify({ type: 'text-end', id: hardcodedResponse.length })}\n\n`);
+  res.write(`data: ${JSON.stringify({ type: 'text-end', id: '0' })}\n\n`);
   res.write(`data: ${JSON.stringify({ type: 'finish-step' })}\n\n`);
   res.write(`data: ${JSON.stringify({ type: 'finish', finishReason: 'stop' })}\n\n`);
   res.write('data: [DONE]\n\n');

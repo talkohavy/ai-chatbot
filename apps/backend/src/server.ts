@@ -34,7 +34,10 @@ function startServer() {
       res.setHeader('Connection', 'keep-alive');
       // res.setHeader('Transfer-Encoding', 'chunked');
 
-      if (isMock) return void (await sendMockResponse(res));
+      if (isMock) {
+        await sendMockResponse(res);
+        return;
+      }
 
       result.pipeUIMessageStreamToResponse(res);
 
