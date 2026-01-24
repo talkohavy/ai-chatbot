@@ -31,22 +31,24 @@ function startServer() {
       res.setHeader('Content-Type', 'text/plain; charset=utf-8');
       res.setHeader('Transfer-Encoding', 'chunked');
 
-      // Pipe the stream to the response
-      const stream = result.toTextStreamResponse();
-      const reader = stream.body?.getReader();
+      result.pipeUIMessageStreamToResponse(res);
 
-      if (!reader) {
-        res.status(500).json({ error: 'Failed to create stream reader' });
-        return;
-      }
+      // // Pipe the stream to the response
+      // const stream = result.toTextStreamResponse();
+      // const reader = stream.body?.getReader();
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        res.write(value);
-      }
+      // if (!reader) {
+      //   res.status(500).json({ error: 'Failed to create stream reader' });
+      //   return;
+      // }
 
-      res.end();
+      // while (true) {
+      //   const { done, value } = await reader.read();
+      //   if (done) break;
+      //   res.write(value);
+      // }
+
+      // res.end();
     } catch (error) {
       console.error('Error in /api/chat:', error);
       res.status(500).json({ error: 'Internal server error' });

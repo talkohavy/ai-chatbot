@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "cd apps/ai-assistant-frontend && vite",
-    "build": "cd apps/ai-assistant-frontend && tsc -b && vite build",
-    "lint": "cd apps/ai-assistant-frontend && eslint .",
-    "preview": "cd apps/ai-assistant-frontend && vite preview"
+    "dev": "cd apps/frontend && vite",
+    "build": "cd apps/frontend && tsc -b && vite build",
+    "lint": "cd apps/frontend && eslint .",
+    "preview": "cd apps/frontend && vite preview"
   },
   "dependencies": {},
   "devDependencies": {
