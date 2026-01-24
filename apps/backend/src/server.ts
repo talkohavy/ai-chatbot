@@ -1,53 +1,65 @@
-import { openai } from '@ai-sdk/openai';
+import { createAnthropic } from '@ai-sdk/anthropic';
+
 import { streamText, convertToModelMessages } from 'ai';
 import cors from 'cors';
 import express from 'express';
+// import { openai } from '@ai-sdk/openai';
 
-const app = express();
-const PORT = process.env.PORT || 8000;
+function startServer() {
+  const anthropic = createAnthropic({
+    baseURL: process.env.ANTHROPIC_BASE_URL || '',
+    apiKey: process.env.ANTHROPIC_API_KEY || '',
+  });
 
-app.use(cors());
-app.use(express.json());
+  const app = express();
+  const PORT = process.env.PORT || 8000;
 
-app.post('/api/chat', async (req, res) => {
-  try {
-    const { messages } = req.body;
+  app.use(cors());
+  app.use(express.json());
 
-    const result = streamText({
-      model: openai('gpt-4o-mini'),
-      messages: await convertToModelMessages(messages),
-    });
+  app.post('/api/chat', async (req, res) => {
+    try {
+      const { messages } = req.body;
 
-    // Set headers for streaming
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.setHeader('Transfer-Encoding', 'chunked');
+      const result = streamText({
+        model: anthropic('deployment-name'), // Or: openai('gpt-4o-mini')
+        messages: await convertToModelMessages(messages),
+        temperature: 0,
+      });
 
-    // Pipe the stream to the response
-    const stream = result.toTextStreamResponse();
-    const reader = stream.body?.getReader();
+      // Set headers for streaming
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Transfer-Encoding', 'chunked');
 
-    if (!reader) {
-      res.status(500).json({ error: 'Failed to create stream reader' });
-      return;
+      // Pipe the stream to the response
+      const stream = result.toTextStreamResponse();
+      const reader = stream.body?.getReader();
+
+      if (!reader) {
+        res.status(500).json({ error: 'Failed to create stream reader' });
+        return;
+      }
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        res.write(value);
+      }
+
+      res.end();
+    } catch (error) {
+      console.error('Error in /api/chat:', error);
+      res.status(500).json({ error: 'Internal server error' });
     }
+  });
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      res.write(value);
-    }
+  app.get('/health', (_req, res) => {
+    res.json({ status: 'ok' });
+  });
 
-    res.end();
-  } catch (error) {
-    console.error('Error in /api/chat:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
 
-app.get('/health', (_req, res) => {
-  res.json({ status: 'ok' });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+startServer();
