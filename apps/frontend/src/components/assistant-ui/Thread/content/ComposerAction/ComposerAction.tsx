@@ -4,13 +4,15 @@ import { ComposerAddAttachment } from '@src/components/assistant-ui/attachment';
 import { TooltipIconButton } from '@src/components/assistant-ui/tooltip-icon-button';
 import { Button } from '@src/components/ui/button';
 
+const { Send, Cancel } = ComposerPrimitive;
+
 export default function ComposerAction() {
   return (
     <div className='aui-composer-action-wrapper relative mx-2 mb-2 flex items-center justify-between'>
       <ComposerAddAttachment />
 
       <AuiIf condition={({ thread }) => !thread.isRunning}>
-        <ComposerPrimitive.Send asChild>
+        <Send asChild>
           <TooltipIconButton
             tooltip='Send message'
             side='bottom'
@@ -22,11 +24,11 @@ export default function ComposerAction() {
           >
             <ArrowUpIcon className='aui-composer-send-icon size-4' />
           </TooltipIconButton>
-        </ComposerPrimitive.Send>
+        </Send>
       </AuiIf>
 
       <AuiIf condition={({ thread }) => thread.isRunning}>
-        <ComposerPrimitive.Cancel asChild>
+        <Cancel asChild>
           <Button
             type='button'
             variant='default'
@@ -36,7 +38,7 @@ export default function ComposerAction() {
           >
             <SquareIcon className='aui-composer-cancel-icon size-3 fill-current' />
           </Button>
-        </ComposerPrimitive.Cancel>
+        </Cancel>
       </AuiIf>
     </div>
   );
