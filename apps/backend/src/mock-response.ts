@@ -1,6 +1,6 @@
 import { type Response } from 'express';
 
-export const isMock = false;
+export const isMock = true;
 export const hardcodedResponse = `# AI Assistant Response
 
 Thank you for your question! Here's a comprehensive overview of the topic you asked about.
