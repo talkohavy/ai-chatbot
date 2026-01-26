@@ -1,5 +1,6 @@
 import { MessagePrimitive } from '@assistant-ui/react';
 import { MarkdownText } from '@src/components/assistant-ui/markdown-text';
+import { Reasoning, ReasoningGroup } from '@src/components/assistant-ui/reasoning';
 import { ToolFallback } from '@src/components/assistant-ui/tool-fallback';
 import AssistantActionBar from '../AssistantActionBar';
 import BranchPicker from '../BranchPicker';
@@ -18,6 +19,8 @@ export default function AssistantMessage() {
           components={{
             Text: MarkdownText,
             tools: { Fallback: ToolFallback },
+            Reasoning: Reasoning,
+            ReasoningGroup: ReasoningGroup,
           }}
         />
 
