@@ -1,6 +1,5 @@
-import { type Response } from 'express';
+import type { Response } from 'express';
 
-export const isMock = true;
 export const hardcodedResponse = `# AI Assistant Response
 
 Thank you for your question! Here's a comprehensive overview of the topic you asked about.
@@ -107,7 +106,7 @@ This simulated response demonstrates various formatting capabilities including t
 
 Feel free to ask more questions to test different aspects of the interface!`;
 
-export async function sendMockResponse(res: Response) {
+export async function sendMockResponseWithTable(res: Response) {
   // Send start events
   res.write(`data: ${JSON.stringify({ type: 'start' })}\n\n`);
   res.write(`data: ${JSON.stringify({ type: 'start-step' })}\n\n`);

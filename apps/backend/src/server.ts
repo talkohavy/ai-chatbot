@@ -3,8 +3,11 @@ import { createAnthropic } from '@ai-sdk/anthropic';
 import { streamText, convertToModelMessages } from 'ai';
 import cors from 'cors';
 import express from 'express';
-import { isMock, sendMockResponse } from './mock-response';
+import { sendThinkingMockResponse } from './mocks/thinking-response';
+// import { sendMockResponseWithTable } from './mocks/long-response-with-table';
 // import { openai } from '@ai-sdk/openai';
+
+export const isMock = true;
 
 function startServer() {
   const anthropic = createAnthropic({
@@ -17,11 +20,7 @@ function startServer() {
 
   app.use(
     cors({
-      origin: [
-        'http://localhost:3000',
-        'http://localhost:3004',
-        'http://localhost:3300',
-      ],
+      origin: ['http://localhost:3000', 'http://localhost:3004', 'http://localhost:3300'],
       credentials: true,
     }),
   );
@@ -44,7 +43,7 @@ function startServer() {
       // res.setHeader('Transfer-Encoding', 'chunked');
 
       if (isMock) {
-        await sendMockResponse(res);
+        await sendThinkingMockResponse(res);
         return;
       }
 
