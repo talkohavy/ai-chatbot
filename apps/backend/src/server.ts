@@ -17,7 +17,11 @@ function startServer() {
 
   app.use(
     cors({
-      origin: 'http://localhost:3300',
+      origin: [
+        'http://localhost:3000',
+        'http://localhost:3004',
+        'http://localhost:3300',
+      ],
       credentials: true,
     }),
   );
