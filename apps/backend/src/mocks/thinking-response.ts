@@ -1,5 +1,7 @@
 import type { Response } from 'express';
 
+const shouldThrowError = false;
+
 export async function sendThinkingMockResponse(res: Response) {
   // Send start events
   res.write(`data: ${JSON.stringify({ type: 'start' })}\n\n`);
@@ -181,6 +183,11 @@ export async function sendThinkingMockResponse(res: Response) {
   for (const delta of initialTextDeltas) {
     res.write(`data: ${JSON.stringify({ type: 'text-delta', id: '1', delta })}\n\n`);
     await new Promise((resolve) => setTimeout(resolve, 200));
+  }
+
+  if (shouldThrowError) {
+    res.socket?.destroy();
+    return;
   }
 
   res.write(`data: ${JSON.stringify({ type: 'text-end', id: '1' })}\n\n`);
